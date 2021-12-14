@@ -23,6 +23,7 @@ def getDelimeter(config):
     delimeter = config["Output"]["Delimeter"]
     if type(delimeter)==str:
         delimeter=delimeter.replace("\\t",'\t')
+        delimeter = delimeter.replace("\\n", '\n')
     return delimeter
 
 def getSourceFile(files_dict:dict):
@@ -78,11 +79,16 @@ def extractToWrite(files_dict:dict):
 
     lineContent=sourceFile.readlines()
     for line in lineContent:
-        match = reg.search(line)
+        match = reg.findall(line)
         if match:
             output_line=''
-            for index in range(1,len(match.groups())+1):
-                output_line+=match.group(index)+delimeter
+            for m in match:
+                if type(m) == tuple:
+                    for t in m:
+                        output_line+=t+delimeter
+                else:
+                    output_line+=m+delimeter
+
             count=len(output_line)-len(delimeter)
             output_line=output_line[:count]   #每一行最后不需要分割字符，所以去掉最后的分割字符
             targetFile.write( output_line+"\n")
