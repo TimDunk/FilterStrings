@@ -1,9 +1,9 @@
-这是一个用命令行程序，读取配置文件的正则表达式和其他配置，从输入文件中匹配出目标字符串，输出到一个文件，通常用于接口测试的大批量参数化。
+This is a command-line program that reads regular expressions and other configuration settings from a configuration file, matches target strings from an input file, and writes the results to a file. It is typically used for bulk parameterization in API testing.
 
-构建成exe的命令：
+Build a exe file：
 pyinstaller  argsParser.py  -D --name extractToFile -i favicon.ico --clean --add-data config/reg_config.ini;config -c 
 
-上述命令会产生一个extractToFile.spec文件，用命令 pyinstaller extractToFile.spec可再次构建出exe
+The command above would create an extractToFile.spec file; Use the command py"installer extractToFile.spec" can regenerate the exe file.
 
-构建成exe后的执行方法：
+The approach to execute the exe file：
 .\extractToFile.exe -s D:\PythonProjects\FilterStrings\getCategoryAndCloudMaterialListWithOutContent_test.py
